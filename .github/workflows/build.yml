@@ -51,7 +51,7 @@ jobs:
 
 
       - name: "⭐ Setup Python 2.7 Environment"
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v1
         with:
           python-version: '2.7'
 
