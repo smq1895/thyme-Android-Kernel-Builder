@@ -27,8 +27,6 @@ jobs:
   Build-Kernel:
     name: "🐎 Build kernel"
     runs-on: ubuntu-24.04
-    container:
-      image: ubuntu:20.04
     needs:
       - Set-repos
     strategy:
@@ -51,14 +49,30 @@ jobs:
       - name: "✨ Create working dir"
         run: mkdir -p $kernelDir
 
-      - name: "⭐ Verify environment"
+      - name: "⭐ Install prerequisites and Python 2.7"
         run: |
-          echo "=== Environment Info ==="
+          # 添加旧版 Ubuntu 20.04 的软件源
+          sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu/ focal main universe"
+          sudo apt-get update
+          
+          # 安装所有依赖（明确指定 python2.7 和 python3）
+          sudo apt-get install -y \
+              build-essential bc curl git zip ftp \
+              gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi \
+              libssl-dev lftp zstd wget libfl-dev \
+              libarchive-tools \
+              python3 \
+              python2.7 \
+              python2.7-dev
+          
+          # 设置默认 python 指向 python2.7
+          sudo ln -sf /usr/bin/python2.7 /usr/bin/python
+          
+          # 验证环境
           python --version
           python3 --version
-          gcc --version
-          aarch64-linux-gnu-gcc --version
-          echo "=== Environment ready ==="
+
+
 
       - name: "🌟 Clone kernel source => (${{ env.kernelRepo }})"
         working-directory: ./${{ env.kernelDir }}
