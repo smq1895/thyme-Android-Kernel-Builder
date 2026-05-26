@@ -67,11 +67,11 @@ jobs:
           
           # 设置默认 python 指向 python2.7
           sudo ln -sf /usr/bin/python2.7 /usr/bin/python
-          
+          sudo ln -sf /usr/bin/python2.7 /usr/bin/python2          
           # 验证环境
           python --version
           python3 --version
-
+          python2 --version
 
 
       - name: "🌟 Clone kernel source => (${{ env.kernelRepo }})"
