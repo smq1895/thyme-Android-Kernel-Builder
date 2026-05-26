@@ -1,9 +1,9 @@
 [  {
     "kernelSource": {
-      "name": "miku-KernelSU",
-      "repo": "https://github.com/PhamtomK12/kernel_xiaomi_odin",
-      "branch": "TDA",
-      "device": "odin"
+      "name": "badelXia",
+      "repo": "https://github.com/badelXia/android_kernel_xiaomi_thyme",
+      "branch": "main",
+      "device": "thyme"
     },
     "withKernelSU": true,
     "toolchains": [
