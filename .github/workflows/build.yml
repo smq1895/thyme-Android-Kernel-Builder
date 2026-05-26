@@ -10,7 +10,7 @@ on:
 jobs:
   Set-repos:
     name: "🐂 Parse repos.json"
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     outputs:
       repos: ${{ steps.generate-matrix.outputs.repos }}
     steps:
@@ -26,7 +26,9 @@ jobs:
 
   Build-Kernel:
     name: "🐎 Build kernel"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+    container:
+      image: python:2.7.18-slim
     needs:
       - Set-repos
     strategy:
