@@ -49,10 +49,18 @@ jobs:
       - name: "✨ Create working dir"
         run: mkdir -p $kernelDir
 
+
+      - name: "⭐ Setup Python 2.7 Environment"
+        uses: actions/setup-python@v5
+        with:
+          python-version: '2.7'
+
+
+          
       - name: "⭐ Install prerequisites"
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential bc curl git zip ftp gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi libssl-dev lftp zstd wget libfl-dev python2 python3 libarchive-tools
+          sudo apt-get install -y build-essential bc curl git zip ftp gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi libssl-dev lftp zstd wget libfl-dev python3 libarchive-tools
 
       - name: "🌟 Clone kernel source => (${{ env.kernelRepo }})"
         working-directory: ./${{ env.kernelDir }}
