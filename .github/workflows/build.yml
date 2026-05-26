@@ -49,12 +49,15 @@ jobs:
       - name: "✨ Create working dir"
         run: mkdir -p $kernelDir
 
-
-      - name: "⭐ Setup Python 2.7 Environment"
-        uses: actions/setup-python@v1
-        with:
-          python-version: '2.7'
-
+      - name: "⭐ Install Python 2.7 from deadsnakes PPA"
+        run: |
+          sudo add-apt-repository ppa:deadsnakes/ppa -y
+          sudo apt-get update
+          sudo apt-get install -y python2.7 python2.7-dev
+          # 创建软链接，让 'python' 命令指向 Python 2.7
+          sudo ln -sf /usr/bin/python2.7 /usr/bin/python
+          # 验证安装
+          python --version
 
           
       - name: "⭐ Install prerequisites"
