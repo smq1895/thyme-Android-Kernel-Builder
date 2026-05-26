@@ -27,6 +27,8 @@ jobs:
   Build-Kernel:
     name: "🐎 Build kernel"
     runs-on: ubuntu-24.04
+    container:
+      image: ubuntu:20.04
     needs:
       - Set-repos
     strategy:
@@ -49,21 +51,14 @@ jobs:
       - name: "✨ Create working dir"
         run: mkdir -p $kernelDir
 
-      - name: "⭐ Install Python 2.7 from deadsnakes PPA"
+      - name: "⭐ Verify environment"
         run: |
-          sudo add-apt-repository ppa:deadsnakes/ppa -y
-          sudo apt-get update
-          sudo apt-get install -y python2.7 python2.7-dev
-          # 创建软链接，让 'python' 命令指向 Python 2.7
-          sudo ln -sf /usr/bin/python2.7 /usr/bin/python
-          # 验证安装
+          echo "=== Environment Info ==="
           python --version
-
-          
-      - name: "⭐ Install prerequisites"
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential bc curl git zip ftp gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi libssl-dev lftp zstd wget libfl-dev python3 libarchive-tools
+          python3 --version
+          gcc --version
+          aarch64-linux-gnu-gcc --version
+          echo "=== Environment ready ==="
 
       - name: "🌟 Clone kernel source => (${{ env.kernelRepo }})"
         working-directory: ./${{ env.kernelDir }}
